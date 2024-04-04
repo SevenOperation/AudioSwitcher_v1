@@ -1560,6 +1560,7 @@ namespace FortyOne.AudioSwitcher
             swapAllListViewTheme(isChecked);
             swapAllLinkLabelTheme(isChecked);
             swapAllSplitButtonTheme(isChecked);
+            swapAllGridView(isChecked);
 
         }
 
@@ -1611,6 +1612,36 @@ namespace FortyOne.AudioSwitcher
             {
                 element.BackColor = Color.White;
                 element.ForeColor = Color.Black;
+            }
+        }
+
+        #endregion
+        #region GridView
+
+        private void swapAllGridView(bool isChecked)
+        {
+            foreach (TabPage page in this.tabControl1.TabPages)
+                foreach (DataGridView view in page.Controls.OfType<DataGridView>())
+                    swapGridView(view, isChecked);
+        }
+
+        private void swapGridView(DataGridView view, bool isChecked)
+        {
+            view.ForeColor = Color.Gray;
+
+            if (isChecked)
+                view.BackgroundColor = CustomColorPalette.Electromagnetic; 
+            else
+                view.BackgroundColor = Color.White;
+
+            int i = 0;
+            foreach (DataGridViewRow row in view.Rows)
+            {
+                if(isChecked)
+                    row.DefaultCellStyle.BackColor = i % 2 == 0 ? CustomColorPalette.Electromagnetic : CustomColorPalette.BlackPearl;
+                else
+                    row.DefaultCellStyle.BackColor = i % 2 == 0 ? Color.White : Color.LightGray;
+                i++;
             }
         }
 
