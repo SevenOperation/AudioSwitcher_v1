@@ -16,6 +16,7 @@ using AudioSwitcher.AudioApi;
 using AudioSwitcher.AudioApi.Observables;
 using FortyOne.AudioSwitcher.AudioSwitcherService;
 using FortyOne.AudioSwitcher.Configuration;
+using FortyOne.AudioSwitcher.Controls;
 using FortyOne.AudioSwitcher.Helpers;
 using FortyOne.AudioSwitcher.HotKeyData;
 using FortyOne.AudioSwitcher.Properties;
@@ -44,7 +45,7 @@ namespace FortyOne.AudioSwitcher
             {DeviceIcon.Monitor, "3017"},
             {DeviceIcon.StereoMix, "3018"},
             {DeviceIcon.Kinect, "3020"},
-            {DeviceIcon.Unknown, "3020"}
+            {DeviceIcon.Unknown, "3020"} //TODO:SWAP IMAGE
         };
 
         private readonly string[] YOUTUBE_VIDEOS =
@@ -67,6 +68,7 @@ namespace FortyOne.AudioSwitcher
         public AudioSwitcher()
         {
             InitializeComponent();
+            setButtonsFlat();
             HandleCreated += AudioSwitcher_HandleCreated;
 
             try
@@ -95,6 +97,18 @@ namespace FortyOne.AudioSwitcher
             Task.Factory.StartNew(CheckForNewVersion);
 
             MinimizeFootprint();
+        }
+
+        private void setButtonsFlat()
+        {
+            foreach (TabPage page in this.tabControl1.TabPages)
+                foreach (Button button in page.Controls.OfType<Button>())
+                {
+                    button.FlatStyle = FlatStyle.Flat;
+                    button.FlatAppearance.BorderSize = 1;
+                    button.FlatAppearance.BorderColor = Color.Gray;
+                }
+                    
         }
 
         public static AudioSwitcher Instance
@@ -1478,5 +1492,212 @@ namespace FortyOne.AudioSwitcher
 				}));
 			}
 		}
-	}
+
+        private void tabControl1_DrawItem(object sender, System.Windows.Forms.DrawItemEventArgs e)
+        {
+            TabPage CurrentTab = tabControl1.TabPages[e.Index];
+            Rectangle ItemRect = tabControl1.GetTabRect(e.Index);
+            SolidBrush FillBrush = null;
+            SolidBrush TextBrush = null;
+            if (this.chkTheme.Checked)
+            {
+                FillBrush = new SolidBrush(CustomColorPalette.Electromagnetic);
+                TextBrush = new SolidBrush(Color.Gray);
+            }
+            else
+            {
+                FillBrush = new SolidBrush(Color.White);
+                TextBrush = new SolidBrush(Color.Black);
+            }
+            StringFormat sf = new StringFormat();
+            sf.Alignment = StringAlignment.Center;
+            sf.LineAlignment = StringAlignment.Center;
+
+            //If we are currently painting the Selected TabItem we'll
+            //change the brush colors and inflate the rectangle.
+            if (System.Convert.ToBoolean(e.State & DrawItemState.Selected))
+            {
+                ItemRect.Inflate(2, 2);
+            }
+
+            //Set up rotation for left and right aligned tabs
+            if (tabControl1.Alignment == TabAlignment.Left || tabControl1.Alignment == TabAlignment.Right)
+            {
+                float RotateAngle = 90;
+                if (tabControl1.Alignment == TabAlignment.Left)
+                    RotateAngle = 270;
+                PointF cp = new PointF(ItemRect.Left + (ItemRect.Width / 2), ItemRect.Top + (ItemRect.Height / 2));
+                e.Graphics.TranslateTransform(cp.X, cp.Y);
+                e.Graphics.RotateTransform(RotateAngle);
+                ItemRect = new Rectangle(-(ItemRect.Height / 2), -(ItemRect.Width / 2), ItemRect.Height, ItemRect.Width);
+            }
+
+            //Next we'll paint the TabItem with our Fill Brush
+            e.Graphics.FillRectangle(FillBrush, ItemRect);
+
+            //Now draw the text.
+            e.Graphics.DrawString(CurrentTab.Text, e.Font, TextBrush, (RectangleF)ItemRect, sf);
+
+            //Reset any Graphics rotation
+            e.Graphics.ResetTransform();
+
+            //Finally, we should Dispose of our brushes.
+            FillBrush.Dispose();
+            TextBrush.Dispose();
+        }
+
+        private void chkTheme_CheckedChanged(object sender, EventArgs e)
+        {
+            bool isChecked = chkTheme.Checked;
+            swapTheme(isChecked);
+        }
+
+        private void swapTheme(bool isChecked)
+        {
+            swapAllTapTheme(isChecked);
+            swapAllButtonsTheme(isChecked);
+            swapFormTheme(isChecked);
+            swapAllListViewTheme(isChecked);
+            swapAllLinkLabelTheme(isChecked);
+            swapAllSplitButtonTheme(isChecked);
+
+        }
+
+        #region Button
+
+        private void swapAllButtonsTheme(bool isChecked)
+        {
+            foreach (TabPage page in this.tabControl1.TabPages)
+                    foreach (Button button in page.Controls.OfType<Button>())
+                        swapButtonTheme(button,isChecked);
+        }
+
+        private void swapButtonTheme(Button button, bool isChecked)
+        {
+            if (isChecked)
+            {
+                button.BackColor = CustomColorPalette.BlueNights;
+                button.ForeColor = Color.Gray;
+                button.FlatStyle = FlatStyle.Flat;
+                button.FlatAppearance.BorderColor = CustomColorPalette.BlackPearl;
+            }
+            else
+            {
+                button.BackColor = Color.Transparent; 
+                button.ForeColor = Color.Black;
+                button.FlatAppearance.BorderColor = Color.Gray;
+            }
+
+            
+        }
+        #endregion
+        #region ListView
+        private void swapAllListViewTheme(bool isChecked)
+        {
+            foreach (TabPage page in this.tabControl1.TabPages)
+                foreach (ListView element in page.Controls.OfType<ListView>())
+                    swapListViewTheme(element, isChecked);
+        }
+
+        private void swapListViewTheme(ListView element, bool isChecked)
+        {
+            if (isChecked)
+            {
+                element.BackColor = CustomColorPalette.Electromagnetic;
+                element.ForeColor = Color.Gray;
+                element.BorderStyle = BorderStyle.FixedSingle;
+            }
+            else
+            {
+                element.BackColor = Color.White;
+                element.ForeColor = Color.Black;
+            }
+        }
+
+        #endregion
+        #region Tab
+
+        private void swapAllTapTheme(bool isChecked)
+        {
+            foreach (TabPage page in this.tabControl1.TabPages)
+                swapTapTheme(page, isChecked);   
+        }
+
+        private void swapTapTheme(TabPage tap, bool isChecked)
+        {
+            
+            if (isChecked)
+            {
+                tap.BackColor = CustomColorPalette.Electromagnetic; 
+                tap.ForeColor = Color.Gray;
+            }
+            else
+            {
+                tap.BackColor= Color.Transparent;
+                tap.ForeColor = Color.Black;
+            }
+            
+        }
+
+        #endregion
+        #region Form
+        private void swapFormTheme(bool isChecked)
+        {
+            if(isChecked)
+                this.BackColor = CustomColorPalette.Electromagnetic;
+            else
+                this.BackColor = Color.White;
+        }
+        #endregion
+        #region SplitButton
+        private void swapAllSplitButtonTheme(bool isChecked)
+        {
+            foreach (TabPage page in this.tabControl1.TabPages)
+                foreach (SplitButton button in page.Controls.OfType<SplitButton>())
+                    swapSplitButtonTheme(button, isChecked);
+        }
+
+        private void swapSplitButtonTheme(SplitButton button, bool isChecked)
+        {
+            button.BackgroundImage = Properties.Resources.github;
+            button.BackgroundImageLayout = ImageLayout.None;
+            if (isChecked)
+                button.BackColor = CustomColorPalette.Electromagnetic;
+            else
+                button.BackColor = Color.Transparent;
+            button.ForeColor = Color.Gray;
+            foreach(ToolStripItem element in button.ContextMenuStrip.Items)
+            {
+                if (isChecked)
+                    element.BackColor = CustomColorPalette.Electromagnetic;
+                else
+                    element.BackColor = Color.Transparent;
+            }
+        }
+
+        #endregion
+        #region LinkLabel
+
+        private void swapAllLinkLabelTheme(bool isChecked)
+        {
+            foreach (TabPage page in this.tabControl1.TabPages)
+                foreach (LinkLabel label in page.Controls.OfType<LinkLabel>())
+                    swapLinkLabelTheme(label, isChecked);
+        }
+
+        private void swapLinkLabelTheme(LinkLabel label, bool isChecked)
+        {
+            if (isChecked)
+                label.LinkColor = Color.DarkGray;
+            else
+                label.LinkColor = Color.Navy;
+        }
+
+
+
+        #endregion
+
+
+
+    }
 }

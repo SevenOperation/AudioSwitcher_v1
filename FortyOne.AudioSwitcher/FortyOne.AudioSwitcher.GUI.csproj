@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FortyOne.AudioSwitcher</RootNamespace>
     <AssemblyName>AudioSwitcher</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <TargetFrameworkProfile>
@@ -120,6 +120,7 @@
     <Compile Include="ChangeLogForm.Designer.cs">
       <DependentUpon>ChangeLogForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomColorPalette.cs" />
     <Compile Include="Configuration\ConfigurationSettings.cs" />
     <Compile Include="Configuration\ConfigurationWriter.cs" />
     <Compile Include="AudioSwitcher.cs">
