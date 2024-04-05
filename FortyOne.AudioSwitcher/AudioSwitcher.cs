@@ -1554,6 +1554,8 @@ namespace FortyOne.AudioSwitcher
 
         private void swapTheme(bool isChecked)
         {
+            int tabIndex = this.tabControl1.SelectedIndex;
+            tabControl1.SelectedIndex = 3;
             swapAllTapTheme(isChecked);
             swapAllButtonsTheme(isChecked);
             swapFormTheme(isChecked);
@@ -1561,6 +1563,8 @@ namespace FortyOne.AudioSwitcher
             swapAllLinkLabelTheme(isChecked);
             swapAllSplitButtonTheme(isChecked);
             swapAllGridView(isChecked);
+            swapStatusStripTheme(isChecked);
+            tabControl1.SelectedIndex = tabIndex;
 
         }
 
@@ -1647,7 +1651,6 @@ namespace FortyOne.AudioSwitcher
 
         #endregion
         #region Tab
-
         private void swapAllTapTheme(bool isChecked)
         {
             foreach (TabPage page in this.tabControl1.TabPages)
@@ -1674,6 +1677,7 @@ namespace FortyOne.AudioSwitcher
         #region Form
         private void swapFormTheme(bool isChecked)
         {
+            this.he
             if(isChecked)
                 this.BackColor = CustomColorPalette.Electromagnetic;
             else
@@ -1727,7 +1731,13 @@ namespace FortyOne.AudioSwitcher
 
 
         #endregion
-
+        private void swapStatusStripTheme(bool isChecked)
+        {
+            if(isChecked)
+                this.statusStrip1.BackColor = CustomColorPalette.Electromagnetic;
+            else
+                this.statusStrip1.BackColor = Color.White;
+        }
 
 
     }

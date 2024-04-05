@@ -109,8 +109,6 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabelUpdate = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusLabelDonate = new System.Windows.Forms.ToolStripStatusLabel();
             this.playbackStrip.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tapPlayback.SuspendLayout();
@@ -979,9 +977,7 @@
             // 
             this.statusStrip1.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.statusLabelUpdate,
-            this.toolStripStatusLabel1,
-            this.statusLabelDonate});
+            this.statusLabelUpdate});
             this.statusStrip1.Location = new System.Drawing.Point(2, 340);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.ShowItemToolTips = true;
@@ -1001,26 +997,6 @@
             this.statusLabelUpdate.Size = new System.Drawing.Size(99, 20);
             this.statusLabelUpdate.Text = "Update Available!";
             this.statusLabelUpdate.Click += new System.EventHandler(this.statusLabelUpdate_Click);
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(162, 17);
-            this.toolStripStatusLabel1.Spring = true;
-            // 
-            // statusLabelDonate
-            // 
-            this.statusLabelDonate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.statusLabelDonate.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.statusLabelDonate.IsLink = true;
-            this.statusLabelDonate.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.statusLabelDonate.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.statusLabelDonate.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
-            this.statusLabelDonate.Name = "statusLabelDonate";
-            this.statusLabelDonate.Size = new System.Drawing.Size(45, 20);
-            this.statusLabelDonate.Text = "Donate";
-            this.statusLabelDonate.ToolTipText = "Donate via PayPal";
-            this.statusLabelDonate.Click += new System.EventHandler(this.statusLabelDonate_Click);
             // 
             // AudioSwitcher
             // 
@@ -1141,8 +1117,6 @@
         private System.Windows.Forms.Button btnClearAll;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel statusLabelUpdate;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripStatusLabel statusLabelDonate;
         private System.Windows.Forms.DataGridViewTextBoxColumn deviceNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn hotKeyStringDataGridViewTextBoxColumn;
         private System.Windows.Forms.ToolStripMenuItem updateAvailableToolStripMenuItem;
