@@ -19,6 +19,7 @@ using FortyOne.AudioSwitcher.Configuration;
 using FortyOne.AudioSwitcher.Helpers;
 using FortyOne.AudioSwitcher.HotKeyData;
 using FortyOne.AudioSwitcher.Properties;
+using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace FortyOne.AudioSwitcher
 {
@@ -767,6 +768,7 @@ namespace FortyOne.AudioSwitcher
             chkQuickSwitch.Checked = Program.Settings.EnableQuickSwitch;
             chkDualSwitchMode.Checked = Program.Settings.DualSwitchMode;
             chkNotifyUpdates.Checked = Program.Settings.UpdateNotificationsEnabled;
+            chkShowActiveDeviceNotifications.Checked = Program.Settings.ShowActiveDeviceNotificationsEnabled;
 
             chkShowDiabledDevices.Checked = Program.Settings.ShowDisabledDevices;
 	        chkShowUnknownDevicesInHotkeyList.Checked = Program.Settings.ShowUnknownDevicesInHotkeyList;
@@ -1299,6 +1301,9 @@ namespace FortyOne.AudioSwitcher
 
                 if (Program.Settings.DualSwitchMode)
                     await hk.Device.SetAsDefaultCommunicationsAsync();
+
+                if(Program.Settings.ShowActiveDeviceNotificationsEnabled)
+                    ShowActiveDeviceNotification(hk);
             }
         }
 
@@ -1416,6 +1421,11 @@ namespace FortyOne.AudioSwitcher
             Program.Settings.UpdateNotificationsEnabled = chkNotifyUpdates.Checked;
         }
 
+        private void chkShowActiveDeviceNotifications_CheckedChanged(object sender, EventArgs e)
+        {
+            Program.Settings.ShowActiveDeviceNotificationsEnabled = chkShowActiveDeviceNotifications.Checked;
+        }
+
         private void twitterLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://www.twitter.com/xenolightning");
@@ -1478,5 +1488,17 @@ namespace FortyOne.AudioSwitcher
 				}));
 			}
 		}
-	}
+
+        private void ShowActiveDeviceNotification(HotKey newActiveDevice)
+        {
+            var audio = new ToastAudio();
+            audio.Silent = true;
+            new ToastContentBuilder()
+            .AddAudio(audio)
+            .AddText(newActiveDevice.Device.DeviceType.ToString() + " Device changed")
+            .AddText("Now Active: " + newActiveDevice.DeviceName)
+            .SetToastDuration(ToastDuration.Short)
+            .Show();
+        }
+    }
 }
