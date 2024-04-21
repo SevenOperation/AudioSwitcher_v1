@@ -28,6 +28,7 @@ namespace FortyOne.AudioSwitcher.Configuration
         public const string SETTING_SHOWDPDEVICEIICONINTRAY = "ShowDPDeviceIconInTray";
         public const string SETTING_UPDATE_NOTIFICATIONS_ENABLED = "UpdateNotificationsEnabled";
         public const string SETTING_SHOW_ACTIVE_DEVICE_NOTIFICATIONS_ENABLED = "ShowActiveDeviceNotificationsEnabled";
+        public const string SETTING_DARK_MODE = "DarkMode";
         private readonly ISettingsSource _configWriter;
 
         public ConfigurationSettings(ISettingsSource source)
@@ -251,6 +252,16 @@ namespace FortyOne.AudioSwitcher.Configuration
             set { _configWriter.Set(SETTING_SHOW_ACTIVE_DEVICE_NOTIFICATIONS_ENABLED, value.ToString()); }
         }
 
+        public bool DarkMode
+        {
+            get
+            {
+                return
+                    Convert.ToBoolean(_configWriter.Get(SETTING_DARK_MODE));
+            }
+            set { _configWriter.Set(SETTING_DARK_MODE, value.ToString()); }
+        }
+
         public void CreateDefaults()
         {
             if (!SettingExists(SETTING_CLOSETOTRAY))
@@ -314,6 +325,28 @@ namespace FortyOne.AudioSwitcher.Configuration
 
             if (!SettingExists(SETTING_SHOW_ACTIVE_DEVICE_NOTIFICATIONS_ENABLED))
                 ShowActiveDeviceNotificationsEnabled = false;
+
+            if (!SettingExists(SETTING_DARK_MODE))
+            {
+                try
+                {
+                    int res = (int)Registry.GetValue("HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", "AppsUseLightTheme", -1);
+                    switch (res)
+                    {
+                        case 0:
+                            DarkMode = true;
+                            break;
+                        default:
+                            DarkMode = false;
+                            break;
+                    }
+                }
+                catch
+                {
+                    DarkMode = false;
+                }
+                
+            }
         }
 
         public void LoadFrom(ConfigurationSettings otherSettings)

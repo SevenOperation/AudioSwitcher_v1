@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -783,6 +781,7 @@ namespace FortyOne.AudioSwitcher
             chkDualSwitchMode.Checked = Program.Settings.DualSwitchMode;
             chkNotifyUpdates.Checked = Program.Settings.UpdateNotificationsEnabled;
             chkShowActiveDeviceNotifications.Checked = Program.Settings.ShowActiveDeviceNotificationsEnabled;
+            chkTheme.Checked = Program.Settings.DarkMode;
 
             chkShowDiabledDevices.Checked = Program.Settings.ShowDisabledDevices;
 	        chkShowUnknownDevicesInHotkeyList.Checked = Program.Settings.ShowUnknownDevicesInHotkeyList;
@@ -1515,11 +1514,6 @@ namespace FortyOne.AudioSwitcher
             .Show();
         }
 
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void customizer_Github_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://github.com/SevenOperation");
@@ -1559,9 +1553,12 @@ namespace FortyOne.AudioSwitcher
             //change the brush colors and inflate the rectangle.
             if (System.Convert.ToBoolean(e.State & DrawItemState.Selected))
             {
+                ItemRect.Inflate(4, 4);
+            }
+            else
+            {
                 ItemRect.Inflate(2, 2);
             }
-
             //Set up rotation for left and right aligned tabs
             if (tabControl1.Alignment == TabAlignment.Left || tabControl1.Alignment == TabAlignment.Right)
             {
@@ -1579,7 +1576,7 @@ namespace FortyOne.AudioSwitcher
 
             //Now draw the text.
             e.Graphics.DrawString(CurrentTab.Text, e.Font, TextBrush, (RectangleF)ItemRect, sf);
-
+            e.Graphics.DrawRectangle(new Pen(FillBrush,12), tabControl1.Bounds);
             //Reset any Graphics rotation
             e.Graphics.ResetTransform();
 
@@ -1591,6 +1588,7 @@ namespace FortyOne.AudioSwitcher
         private void chkTheme_CheckedChanged(object sender, EventArgs e)
         {
             bool isChecked = chkTheme.Checked;
+            Program.Settings.DarkMode = chkTheme.Checked;
             swapTheme(isChecked);
         }
 

@@ -59,6 +59,7 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tapSettings = new System.Windows.Forms.TabPage();
+            this.chkTheme = new System.Windows.Forms.CheckBox();
             this.chkNotifyUpdates = new System.Windows.Forms.CheckBox();
             this.chkShowDPDeviceIconInTray = new System.Windows.Forms.CheckBox();
             this.btnCheckUpdate = new System.Windows.Forms.Button();
@@ -76,9 +77,6 @@
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnDeleteHotKey = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.deviceNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hotKeyStringDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hotKeyBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnEditHotKey = new System.Windows.Forms.Button();
             this.btnAddHotKey = new System.Windows.Forms.Button();
             this.tapAbout = new System.Windows.Forms.TabPage();
@@ -115,6 +113,9 @@
             this.statusLabelDonate = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnSetPlaybackDefault = new FortyOne.AudioSwitcher.Controls.SplitButton();
             this.btnSetRecordingDefault = new FortyOne.AudioSwitcher.Controls.SplitButton();
+            this.deviceNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.hotKeyStringDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.hotKeyBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.playbackStrip.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tapPlayback.SuspendLayout();
@@ -193,7 +194,9 @@
             this.tabControl1.Controls.Add(this.tapSettings);
             this.tabControl1.Controls.Add(this.tapHotkeys);
             this.tabControl1.Controls.Add(this.tapAbout);
+            this.tabControl1.Cursor = System.Windows.Forms.Cursors.Default;
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.tabControl1.Location = new System.Drawing.Point(2, 2);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tabControl1.Name = "tabControl1";
@@ -201,6 +204,7 @@
             this.tabControl1.Size = new System.Drawing.Size(297, 367);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.tabControl1.TabIndex = 0;
+            this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
             // 
             // tapPlayback
             // 
@@ -377,6 +381,7 @@
             // 
             // tapSettings
             // 
+            this.tapSettings.Controls.Add(this.chkTheme);
             this.tapSettings.Controls.Add(this.chkNotifyUpdates);
             this.tapSettings.Controls.Add(this.chkShowDPDeviceIconInTray);
             this.tapSettings.Controls.Add(this.btnCheckUpdate);
@@ -398,6 +403,17 @@
             this.tapSettings.TabIndex = 3;
             this.tapSettings.Text = "Settings";
             this.tapSettings.UseVisualStyleBackColor = true;
+            // 
+            // chkTheme
+            // 
+            this.chkTheme.AutoSize = true;
+            this.chkTheme.Location = new System.Drawing.Point(14, 292);
+            this.chkTheme.Name = "chkTheme";
+            this.chkTheme.Size = new System.Drawing.Size(78, 17);
+            this.chkTheme.TabIndex = 17;
+            this.chkTheme.Text = "Dark mode";
+            this.chkTheme.UseVisualStyleBackColor = true;
+            this.chkTheme.CheckedChanged += new System.EventHandler(this.chkTheme_CheckedChanged);
             // 
             // chkNotifyUpdates
             // 
@@ -426,7 +442,7 @@
             // btnCheckUpdate
             // 
             this.btnCheckUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCheckUpdate.Location = new System.Drawing.Point(185, 265);
+            this.btnCheckUpdate.Location = new System.Drawing.Point(184, 287);
             this.btnCheckUpdate.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnCheckUpdate.Name = "btnCheckUpdate";
             this.btnCheckUpdate.Size = new System.Drawing.Size(101, 25);
@@ -740,7 +756,6 @@
             this.label5.Size = new System.Drawing.Size(164, 13);
             this.label5.TabIndex = 24;
             this.label5.Text = "Customization by: Maurice Fernitz";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // twitterLink
             // 
