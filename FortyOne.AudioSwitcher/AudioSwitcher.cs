@@ -683,7 +683,7 @@ namespace FortyOne.AudioSwitcher
 
         private void linkIssues_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://github.com/xenolightning/AudioSwitcher_v1/issues");
+            Process.Start("https://github.com/SevenOperation/AudioSwitcher_v1/issues");
         }
 
         private void linkWiki_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -1413,7 +1413,7 @@ namespace FortyOne.AudioSwitcher
 
         private void pictureBox1_Click_1(object sender, EventArgs e)
         {
-            Process.Start("https://github.com/xenolightning/AudioSwitcher_v1");
+            Process.Start("https://github.com/SevenOperation/AudioSwitcher_v1");
         }
 
         private void chkNotifyUpdates_CheckedChanged(object sender, EventArgs e)
@@ -1500,5 +1500,27 @@ namespace FortyOne.AudioSwitcher
             .SetToastDuration(ToastDuration.Short)
             .Show();
         }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void customizer_Github_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://github.com/SevenOperation");
+        }
+
+        private void customized_versions_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://github.com/SevenOperation/AudioSwitcher_v1/releases/");
+        }
+
+        private void customizer_donation_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://www.paypal.com/donate/?hosted_button_id=Z3N8P56KR6XAW");
+        }
+
+
     }
 }

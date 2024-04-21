@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("Audio Switcher")]
+[assembly: AssemblyTitle("Custom Audio Switcher")]
 [assembly: AssemblyDescription("Audio Switcher - GUI")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Forty One Ltd.")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Audio Switcher")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCopyright("Copyright ©  2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
