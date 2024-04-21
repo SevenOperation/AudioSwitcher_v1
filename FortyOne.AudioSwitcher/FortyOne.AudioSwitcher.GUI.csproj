@@ -104,6 +104,7 @@
     <Compile Include="ChangeLogForm.Designer.cs">
       <DependentUpon>ChangeLogForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomColorPalette.cs" />
     <Compile Include="Configuration\ConfigurationSettings.cs" />
     <Compile Include="Configuration\ConfigurationWriter.cs" />
     <Compile Include="AudioSwitcher.cs">
